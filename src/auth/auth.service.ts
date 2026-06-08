@@ -20,10 +20,10 @@ export class AuthService {
   ) {}
 
   async signup(signupDto: SignupDto): Promise<AuthResponse> {
-    const passwordHash = await bcrypt.hash(signupDto.password, 10);
-    const user = this.usersService.create(
+    const hashedPassword = await bcrypt.hash(signupDto.password, 10);
+    const user = await this.usersService.create(
       signupDto.email,
-      passwordHash,
+      hashedPassword,
       signupDto.role,
     );
 
@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto): Promise<AuthResponse> {
-    const user = this.usersService.findByEmail(loginDto.email);
+    const user = await this.usersService.findByEmail(loginDto.email);
 
     if (!user) {
       throw new UnauthorizedException('Invalid email or password');
@@ -39,7 +39,7 @@ export class AuthService {
 
     const isPasswordValid = await bcrypt.compare(
       loginDto.password,
-      user.passwordHash,
+      user.password,
     );
 
     if (!isPasswordValid) {

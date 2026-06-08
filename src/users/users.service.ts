@@ -1,42 +1,44 @@
 import { ConflictException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { PublicUser, UserEntity, UserRole } from './user.entity';
 
 @Injectable()
 export class UsersService {
-  // Keeps Day 2 self-contained until the project adds a real database repository.
-  private readonly users: UserEntity[] = [];
-  private nextId = 1;
+  constructor(
+    @InjectRepository(UserEntity)
+    private readonly usersRepository: Repository<UserEntity>,
+  ) {}
 
-  create(email: string, passwordHash: string, role: UserRole): UserEntity {
+  async create(
+    email: string,
+    password: string,
+    role: UserRole,
+  ): Promise<UserEntity> {
     const normalizedEmail = this.normalizeEmail(email);
-    const existingUser = this.findByEmail(normalizedEmail);
+    const existingUser = await this.findByEmail(normalizedEmail);
 
     if (existingUser) {
       throw new ConflictException('Email is already registered');
     }
 
-    const user: UserEntity = {
-      id: this.nextId,
+    const user = this.usersRepository.create({
       email: normalizedEmail,
-      passwordHash,
+      password,
       role,
-      createdAt: new Date(),
-    };
+    });
 
-    this.nextId += 1;
-    this.users.push(user);
-
-    return user;
+    return this.usersRepository.save(user);
   }
 
-  findByEmail(email: string): UserEntity | undefined {
+  findByEmail(email: string): Promise<UserEntity | null> {
     const normalizedEmail = this.normalizeEmail(email);
 
-    return this.users.find((user) => user.email === normalizedEmail);
+    return this.usersRepository.findOne({ where: { email: normalizedEmail } });
   }
 
-  findById(id: number): UserEntity | undefined {
-    return this.users.find((user) => user.id === id);
+  findById(id: number): Promise<UserEntity | null> {
+    return this.usersRepository.findOne({ where: { id } });
   }
 
   toPublicUser(user: UserEntity): PublicUser {
@@ -45,6 +47,7 @@ export class UsersService {
       email: user.email,
       role: user.role,
       createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
     };
   }
 
