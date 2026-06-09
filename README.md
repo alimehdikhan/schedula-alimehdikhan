@@ -1,98 +1,344 @@
+# 🩺 Schedula — Doctor Appointment Scheduling API
+
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="100" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+<p align="center">
+  A backend API for scheduling doctor appointments, built incrementally as a multi-day project using <a href="https://nestjs.com">NestJS</a>, TypeORM, and PostgreSQL.
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 📋 Table of Contents
 
-## Project setup
+- [Tech Stack](#-tech-stack)
+- [Project Setup](#-project-setup)
+- [Environment Variables](#-environment-variables)
+- [Database & Migrations](#-database--migrations)
+- [API Reference](#-api-reference)
+  - [Auth](#auth)
+  - [Doctor Profile (Protected)](#doctor-profile-protected)
+  - [Patient Profile (Protected)](#patient-profile-protected)
+  - [Doctor Discovery (Public)](#doctor-discovery-public)
+- [Project Structure](#-project-structure)
+- [Development Progress](#-development-progress)
 
-```bash
-$ npm install
-```
+---
 
-## Compile and run the project
+## 🛠 Tech Stack
 
-```bash
-# development
-$ npm run start
+| Layer        | Technology                       |
+| ------------ | -------------------------------- |
+| Framework    | NestJS 11                        |
+| Language     | TypeScript 5                     |
+| Database     | PostgreSQL                       |
+| ORM          | TypeORM 1.x                      |
+| Auth         | Passport + JWT                   |
+| Validation   | class-validator, class-transformer |
+| Password     | bcryptjs                         |
 
-# watch mode
-$ npm run start:dev
+---
 
-# production mode
-$ npm run start:prod
-```
-
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## 🚀 Project Setup
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# 1. Clone the repository
+git clone https://github.com/alimehdikhan/schedula-alimehdikhan.git
+cd schedula-alimehdikhan
+
+# 2. Install dependencies
+npm install
+
+# 3. Set up environment variables (see below)
+
+# 4. Run database migrations
+npm run migration:run
+
+# 5. Start the dev server
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+The server starts at `http://localhost:3000` by default.
 
-## Resources
+---
 
-Check out a few resources that may come in handy when working with NestJS:
+## 🔐 Environment Variables
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Create a `.env` file in the project root (or set these in your environment):
 
-## Support
+| Variable           | Default      | Description                          |
+| ------------------ | ------------ | ------------------------------------ |
+| `PORT`             | `3000`       | Application port                     |
+| `DB_HOST`          | `localhost`  | PostgreSQL host                      |
+| `DB_PORT`          | `5432`       | PostgreSQL port                      |
+| `DB_USERNAME`      | `postgres`   | PostgreSQL username                  |
+| `DB_PASSWORD`      | `postgres`   | PostgreSQL password                  |
+| `DB_NAME`          | `schedula`   | PostgreSQL database name             |
+| `JWT_SECRET`       | —            | Secret key for signing JWT tokens    |
+| `DB_MIGRATIONS_RUN`| `false`      | Auto-run migrations on startup       |
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+---
 
-## Stay in touch
+## 🗄 Database & Migrations
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Schedula uses TypeORM migrations (no `synchronize: true` in production).
 
-## License
+```bash
+# Run all pending migrations
+npm run migration:run
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+# Revert the last migration
+npm run migration:revert
+
+# Generate a new migration from entity changes
+npm run migration:generate
+```
+
+### Migrations
+
+| Migration | Description |
+| --------- | ----------- |
+| `1780916400000-CreateUsersAndProfiles` | Creates `users`, `doctor_profiles`, and `patient_profiles` tables with constraints and foreign keys |
+| `1749500000000-AddDoctorAvailabilityStatus` | Adds `is_available` boolean column to `doctor_profiles` |
+
+### Database Schema
+
+| Table              | Key Columns |
+| ------------------ | ----------- |
+| `users`            | `id`, `email` (unique), `password`, `role` (DOCTOR/PATIENT), `created_at`, `updated_at` |
+| `doctor_profiles`  | `id`, `user_id` (FK → users, unique), `full_name`, `specialization`, `experience`, `qualification`, `consultation_fee`, `availability`, `profile_details`, `is_available`, `created_at`, `updated_at` |
+| `patient_profiles` | `id`, `user_id` (FK → users, unique), `full_name`, `age`, `gender` (MALE/FEMALE/OTHER), `contact_details`, `health_information`, `created_at`, `updated_at` |
+
+---
+
+## 📡 API Reference
+
+### Auth
+
+| Method | Endpoint       | Auth | Description |
+| ------ | -------------- | ---- | ----------- |
+| `POST` | `/auth/signup`  | —    | Register a new user (DOCTOR or PATIENT) |
+| `POST` | `/auth/login`   | —    | Login and receive a JWT access token |
+
+**POST `/auth/signup`**
+```json
+{
+  "email": "doctor@example.com",
+  "password": "securePassword123",
+  "role": "DOCTOR"
+}
+```
+
+**POST `/auth/login`**
+```json
+{
+  "email": "doctor@example.com",
+  "password": "securePassword123"
+}
+```
+Returns: `{ "access_token": "eyJhbG..." }`
+
+---
+
+### Doctor Profile (Protected)
+
+> 🔒 Requires JWT + `DOCTOR` role
+
+| Method  | Endpoint          | Description |
+| ------- | ----------------- | ----------- |
+| `POST`  | `/doctor/profile`  | Create doctor profile |
+| `GET`   | `/doctor/profile`  | Get own profile |
+| `PATCH` | `/doctor/profile`  | Update own profile |
+
+**POST `/doctor/profile`**
+```json
+{
+  "fullName": "Dr. Ali Khan",
+  "specialization": "Cardiology",
+  "experience": 10,
+  "qualification": "MBBS, MD Cardiology",
+  "consultationFee": 1500.00,
+  "availability": "Mon-Fri 9AM-5PM",
+  "profileDetails": "Specializing in interventional cardiology with 10+ years of experience."
+}
+```
+
+---
+
+### Patient Profile (Protected)
+
+> 🔒 Requires JWT + `PATIENT` role
+
+| Method  | Endpoint           | Description |
+| ------- | ------------------ | ----------- |
+| `POST`  | `/patient/profile`  | Create patient profile |
+| `GET`   | `/patient/profile`  | Get own profile |
+| `PATCH` | `/patient/profile`  | Update own profile |
+
+**POST `/patient/profile`**
+```json
+{
+  "fullName": "John Doe",
+  "age": 30,
+  "gender": "MALE",
+  "contactDetails": "+92-300-1234567",
+  "healthInformation": "No known allergies"
+}
+```
+
+---
+
+### Doctor Discovery (Public)
+
+> 🌐 No authentication required — allows patients to browse doctors before signing up
+
+| Method | Endpoint        | Description |
+| ------ | --------------- | ----------- |
+| `GET`  | `/doctors`       | List all doctors with filters + pagination |
+| `GET`  | `/doctors/:id`   | Get doctor details by ID |
+
+**Query parameters for `GET /doctors`:**
+
+| Param            | Type    | Default | Description |
+| ---------------- | ------- | ------- | ----------- |
+| `name`           | string  | —       | Partial name search (case-insensitive) |
+| `specialization` | string  | —       | Partial specialization filter (case-insensitive) |
+| `available`      | boolean | —       | Filter by availability (`true`/`false`) |
+| `page`           | integer | `1`     | Page number |
+| `limit`          | integer | `10`    | Items per page |
+
+**Example requests:**
+```
+GET /doctors?specialization=cardio&page=1&limit=5
+GET /doctors?name=ali&available=true
+GET /doctors/3
+```
+
+**Response shape for `GET /doctors`:**
+```json
+{
+  "data": [ ... ],
+  "total": 25,
+  "page": 1,
+  "limit": 10,
+  "totalPages": 3
+}
+```
+
+**Edge cases handled:**
+- Invalid/negative `page` or `limit` → `400 Bad Request`
+- Non-integer doctor ID → `400 Bad Request`
+- Doctor ID not found → `404 Not Found`
+- No results → `200` with empty `data` array and `total: 0`
+- Missing query params → defaults applied (`page=1`, `limit=10`)
+
+---
+
+## 📂 Project Structure
+
+```
+src/
+├── app.module.ts                         # Root module
+├── app.controller.ts                     # Health check / root controller
+├── app.service.ts                        # Root service
+├── main.ts                               # Bootstrap with ValidationPipe
+├── data-source.ts                        # TypeORM CLI data source config
+│
+├── auth/
+│   ├── auth.module.ts                    # Auth module
+│   ├── auth.controller.ts               # POST /auth/signup, POST /auth/login
+│   ├── auth.service.ts                   # Signup/login logic, JWT issuance
+│   ├── jwt.strategy.ts                   # Passport JWT strategy
+│   ├── roles.decorator.ts               # @Roles() decorator
+│   ├── roles.guard.ts                    # RolesGuard
+│   └── dto/
+│       ├── signup.dto.ts
+│       └── login.dto.ts
+│
+├── users/
+│   ├── users.module.ts                   # Users module
+│   ├── users.service.ts                  # User CRUD operations
+│   └── user.entity.ts                    # UserEntity + UserRole enum
+│
+├── doctor/
+│   ├── doctor.module.ts                  # Doctor module
+│   ├── doctor.controller.ts              # DoctorController (protected) + DoctorDiscoveryController (public)
+│   ├── doctor.service.ts                 # Profile CRUD + findAll/findById
+│   ├── doctor-profile.entity.ts          # DoctorProfileEntity
+│   └── dto/
+│       ├── create-doctor-profile.dto.ts
+│       ├── update-doctor-profile.dto.ts
+│       ├── query-doctors.dto.ts          # Query filters + pagination
+│       └── doctor-list-item.dto.ts       # List response shape
+│
+├── patient/
+│   ├── patient.module.ts                 # Patient module
+│   ├── patient.controller.ts             # Profile CRUD (protected, PATIENT role)
+│   ├── patient.service.ts                # Profile CRUD operations
+│   ├── patient-profile.entity.ts         # PatientProfileEntity
+│   └── dto/
+│       ├── create-patient-profile.dto.ts
+│       └── update-patient-profile.dto.ts
+│
+└── migrations/
+    ├── 1780916400000-CreateUsersAndProfiles.ts
+    └── 1749500000000-AddDoctorAvailabilityStatus.ts
+```
+
+---
+
+## 📅 Development Progress
+
+### Day 1 — Project Setup & Database Design
+- Initialized NestJS project with TypeScript
+- Configured PostgreSQL + TypeORM (no `synchronize`)
+- Designed ER schema for `users`, `doctor_profiles`, and `patient_profiles`
+- Created initial migration with constraints and foreign keys
+
+### Day 2 — Authentication
+- Implemented user registration (`POST /auth/signup`) with bcrypt password hashing
+- Implemented login (`POST /auth/login`) with JWT token issuance
+- Created Passport JWT strategy for route protection
+- Added role-based access control with `@Roles()` decorator and `RolesGuard`
+- Input validation via `class-validator` with global `ValidationPipe`
+
+### Day 3 — Profile Onboarding
+- Doctor profile CRUD (`POST/GET/PATCH /doctor/profile`) — JWT + DOCTOR role required
+- Patient profile CRUD (`POST/GET/PATCH /patient/profile`) — JWT + PATIENT role required
+- One-to-one relationship between users and profiles
+- Duplicate profile prevention (409 Conflict)
+- Partial updates via PATCH
+
+### Day 4 — Doctor Discovery
+- Public doctor listing with pagination (`GET /doctors`)
+- Search by name (partial, case-insensitive)
+- Filter by specialization (partial, case-insensitive)
+- Filter by availability (`?available=true/false`)
+- Doctor detail by ID (`GET /doctors/:id`)
+- Added `is_available` boolean column via migration
+- Split controller: `DoctorDiscoveryController` (public) + `DoctorController` (protected)
+
+---
+
+## 📜 Scripts
+
+```bash
+npm run start          # Start the app
+npm run start:dev      # Start in watch mode
+npm run start:prod     # Start production build
+npm run build          # Compile TypeScript
+npm run lint           # Lint and auto-fix
+npm run test           # Run unit tests
+npm run test:e2e       # Run e2e tests
+npm run test:cov       # Test coverage
+npm run migration:run  # Run pending migrations
+npm run migration:revert # Revert last migration
+npm run migration:generate # Generate migration from entity changes
+```
+
+---
+
+## 📄 License
+
+This project is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
