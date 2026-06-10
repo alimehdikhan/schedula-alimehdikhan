@@ -4,7 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CreateUsersAndProfiles1780916400000 } from './migrations/1780916400000-CreateUsersAndProfiles';
-import { AddDoctorAvailabilityStatus1749500000000 } from './migrations/1749500000000-AddDoctorAvailabilityStatus';
+import { AddDoctorAvailabilityStatus1780916500000 } from './migrations/1780916500000-AddDoctorAvailabilityStatus';
 import { DoctorModule } from './doctor/doctor.module';
 import { PatientModule } from './patient/patient.module';
 
@@ -26,7 +26,7 @@ const isProduction = process.env.NODE_ENV === 'production';
           }),
       autoLoadEntities: true,
       synchronize: false,
-      migrations: [CreateUsersAndProfiles1780916400000, AddDoctorAvailabilityStatus1749500000000],
+      migrations: [CreateUsersAndProfiles1780916400000, AddDoctorAvailabilityStatus1780916500000],
       migrationsRun: process.env.DB_MIGRATIONS_RUN === 'true',
       ssl: isProduction ? { rejectUnauthorized: false } : false,
     }),

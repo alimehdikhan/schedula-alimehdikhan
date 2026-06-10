@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, TableColumn } from 'typeorm';
 
-export class AddDoctorAvailabilityStatus1749500000000
+export class AddDoctorAvailabilityStatus1780916500000
   implements MigrationInterface
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
