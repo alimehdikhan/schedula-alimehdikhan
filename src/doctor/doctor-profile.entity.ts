@@ -53,6 +53,9 @@ export class DoctorProfileEntity {
   @Column({ name: 'profile_details', type: 'text' })
   profileDetails!: string;
 
+  @Column({ name: 'is_available', default: true })
+  isAvailable!: boolean;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
 
