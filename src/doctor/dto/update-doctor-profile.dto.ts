@@ -7,6 +7,7 @@ import {
   MaxLength,
   Min,
   MinLength,
+  IsBoolean,
 } from 'class-validator';
 
 export class UpdateDoctorProfileDto {
@@ -49,4 +50,8 @@ export class UpdateDoctorProfileDto {
   @IsString()
   @MinLength(2)
   profileDetails?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isAvailable?: boolean;
 }

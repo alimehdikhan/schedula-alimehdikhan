@@ -2,10 +2,12 @@ import { Type } from 'class-transformer';
 import {
   IsInt,
   IsNumber,
+  IsOptional,
   IsString,
   MaxLength,
   Min,
   MinLength,
+  IsBoolean,
 } from 'class-validator';
 
 export class CreateDoctorProfileDto {
@@ -41,4 +43,8 @@ export class CreateDoctorProfileDto {
   @IsString()
   @MinLength(2)
   profileDetails!: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isAvailable?: boolean;
 }
