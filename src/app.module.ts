@@ -8,9 +8,6 @@ import { AddDoctorAvailabilityStatus1780916500000 } from './migrations/178091650
 import { DoctorModule } from './doctor/doctor.module';
 import { PatientModule } from './patient/patient.module';
 
-import { CreateRecurringAvailability1781186675548 } from './migrations/1781186675548-CreateRecurringAvailability';
-import { AddAvailabilityIndexes1781187097825 } from './migrations/1781187097825-AddAvailabilityIndexes';
-
 const databasePort = Number.parseInt(process.env.DB_PORT ?? '5432', 10);
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -29,7 +26,7 @@ const isProduction = process.env.NODE_ENV === 'production';
           }),
       autoLoadEntities: true,
       synchronize: false,
-      migrations: [CreateUsersAndProfiles1780916400000, AddDoctorAvailabilityStatus1780916500000, CreateRecurringAvailability1781186675548, AddAvailabilityIndexes1781187097825],
+      migrations: [CreateUsersAndProfiles1780916400000, AddDoctorAvailabilityStatus1780916500000],
       migrationsRun: process.env.DB_MIGRATIONS_RUN === 'true',
       ssl: isProduction ? { rejectUnauthorized: false } : false,
     }),
